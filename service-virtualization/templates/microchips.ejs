@@ -1,0 +1,38 @@
+{
+    "protocol": "http",
+    "port": 8091,
+    "stubs": [
+        {
+            "predicates": [
+                {
+                    "equals": {
+                        "path": "/microchips/504-023-459"
+                    }
+                }
+            ],
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200,
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                        "body": {
+                            "animalId": "L-49405",
+                            "number": "504-023-459"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 404
+                    }
+                }
+            ]
+        }
+    ]
+}
