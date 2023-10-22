@@ -1,0 +1,32 @@
+test_name: Given an intake, when intake is processed, then animal exists in all expected systems
+
+stages:
+  - name: Store the animal
+    request:
+      url: http://localhost:8090/animals/c200f720-0fca-4356-90aa-169c3c58ffdd
+      method: GET
+    response:
+      status_code: 200
+      json:
+        guid: "c200f720-0fca-4356-90aa-169c3c58ffdd"
+        id: "L-49405"
+        firstName: "Uno"
+        species: "Llama"
+        birthDate: "2022-01-05"
+        birthPlace: "Pennsylvania"
+        microchipNumber: "504-023-459"
+      save:
+        json:
+          returned_guid: guid
+          returned_microchip_number: microchipNumber
+
+  - name: Check if stored correctly in microchip database
+    request:
+      url: http://localhost:8091/microchips/{returned_microchip_number}
+      method: GET
+    response:
+      status_code: 200
+      json:
+        animalId: "L-49405"
+        number: "504-023-459"
+        state: "PA"
