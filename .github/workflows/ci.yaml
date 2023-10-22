@@ -1,0 +1,40 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build docker image
+        working-directory: ./service-virtualization
+        run: | 
+          echo Building docker image
+          docker build -t mountebank-server-with-templates .
+          docker run --detach --name mountebank-animals -p 2525:2525 -p 8090:8090 -p 8091:8091 -it mountebank-server-with-templates
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - uses: snok/install-poetry@v1
+        with:
+          version: 1.5.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Install dependencies
+        working-directory: ./testing
+        run: poetry install --no-interaction
+
+      - name: Run tavern tests
+        working-directory: ./testing
+        run: poetry run pytest
+
+      - name: Stop docker container
+        run: | 
+          docker stop mountebank-animals
+          docker rm mountebank-animals
