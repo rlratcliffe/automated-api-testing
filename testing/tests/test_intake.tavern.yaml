@@ -7,14 +7,7 @@ stages:
       method: GET
     response:
       status_code: 200
-      json:
-        guid: "c200f720-0fca-4356-90aa-169c3c58ffdd"
-        id: "L-49405"
-        firstName: "Uno"
-        species: "Llama"
-        birthDate: "2022-01-05"
-        birthPlace: "Pennsylvania"
-        microchipNumber: "504-023-459"
+      json: !include resources/intake/source.json
       save:
         json:
           returned_guid: guid
