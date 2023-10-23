@@ -1,16 +1,25 @@
 test_name: Given an intake, when intake is processed, then animal exists in all expected systems
 
 stages:
-  - name: Store the animal
+  - name: Start the intake
     request:
-      url: http://localhost:8090/animals/c200f720-0fca-4356-90aa-169c3c58ffdd
+      url: http://localhost:8090/animals
+      method: POST
+    response:
+      status_code: 201
+      save:
+        json:
+          returned_guid: guid
+
+  - name: Retrieve the JSON of the created animal
+    request:
+      url: http://localhost:8090/animals/{returned_guid}
       method: GET
     response:
       status_code: 200
       json: !include resources/intake/source.json
       save:
         json:
-          returned_guid: guid
           returned_microchip_number: microchipNumber
 
   - name: Check if stored correctly in microchip database
