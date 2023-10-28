@@ -1,9 +1,9 @@
 {
-    "guid": "{guid_from_xml}",
-    "id": "{id_from_xml}",
-    "firstName": "{name_from_xml}",
-    "species": "{species_from_xml}",
-    "birthDate": "{birthYear_from_xml}-01-{birthDate_from_xml}",
-    "birthPlace": "{birthPlace_from_xml}",
-    "microchipNumber": "{microchip_from_xml}"
+    "guid": "{guid_from_main_source}",
+    "id": "{id_from_main_source}",
+    "firstName": "{name_from_main_source}",
+    "species": "{species_from_main_source}",
+    "birthDate": "{birthYear_from_main_source}-01-{birthDate_from_main_source}",
+    "birthPlace": "{birthPlace_from_main_source}",
+    "microchipNumber": "{microchip_from_main_source}"
 }

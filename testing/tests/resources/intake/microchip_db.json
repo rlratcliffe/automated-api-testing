@@ -1,5 +1,5 @@
 {
-    "animalId": "{id_from_xml}",
-    "number": "{microchip_from_xml}",
-    "state": "{birthPlaceCode_from_xml}"
+    "animalId": "{id_from_main_source}",
+    "number": "{microchip_from_main_source}",
+    "state": "{birthPlaceCode_from_main_source}"
 }

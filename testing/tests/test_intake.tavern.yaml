@@ -22,15 +22,15 @@ stages:
           function: tavalidate:save_xml
           extra_kwargs:
             variables:
-              guid_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/GUID/text()'
-              id_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/ID/text()'
-              name_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/First_Name/text()'
-              species_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Species/text()'
-              birthYear_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Year/text()'
-              birthDate_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Day/text()'
-              birthPlace_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State/text()'
-              birthPlaceCode_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State_Code/text()'
-              microchip_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/Intake/Microchip/ID/text()'
+              guid_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/GUID/text()'
+              id_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/ID/text()'
+              name_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/First_Name/text()'
+              species_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Species/text()'
+              birthYear_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Year/text()'
+              birthDate_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Day/text()'
+              birthPlace_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State/text()'
+              birthPlaceCode_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State_Code/text()'
+              microchip_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Intake/Microchip/ID/text()'
 
   - name: Retrieve the JSON of the created animal
     request:
@@ -42,7 +42,7 @@ stages:
 
   - name: Check if stored correctly in microchip database
     request:
-      url: http://localhost:8091/microchips/{microchip_from_xml}
+      url: http://localhost:8091/microchips/{microchip_from_main_source}
       method: GET
     response:
       status_code: 200
