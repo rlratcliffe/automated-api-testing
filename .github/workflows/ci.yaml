@@ -14,7 +14,7 @@ jobs:
         run: | 
           echo Building docker image
           docker build -t mountebank-server-with-templates .
-          docker run --detach --name mountebank-animals -p 2525:2525 -p 8090:8090 -p 8091:8091 -it mountebank-server-with-templates
+          docker run --detach --name mountebank-animals -p 2525:2525 -p 8090:8090 -p 8091:8091 -p 8000:8000 -it mountebank-server-with-templates
 
       - uses: actions/setup-python@v2
         with:
