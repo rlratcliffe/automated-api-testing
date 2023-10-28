@@ -11,6 +11,55 @@ stages:
         json:
           returned_guid: guid
 
+  - name: Retrieve the XML of the animal
+    request:
+      url: http://localhost:8000/animals/{returned_guid}
+      method: GET
+    response:
+      status_code: 200
+      verify_response_with:
+        function: tavalidate:assert_xml
+        extra_kwargs:
+          expected: |
+            <Get_Animals>
+              <Response_Data>
+                <Animal>
+                  <Animal_Data>
+                    <ID_Data>
+                      <GUID>c200f720-0fca-4356-90aa-169c3c58ffdd</GUID>
+                      <ID>L-49405</ID>
+                    </ID_Data>
+                    <First_Name>Uno</First_Name>
+                    <Species>Llama</Species>
+                    <Birth_Information>
+                      <Birthday>
+                        <Month>January</Month>
+                        <Day>05</Day>
+                        <Year>2022</Year>
+                      </Birthday>
+                      <Location>
+                        <City>Erie</City>
+                        <State>Pennsylvania</State>
+                        <State_Code>PA</State_Code>
+                      </Location>
+                    </Birth_Information>
+                    <Intake>
+                      <Microchip>
+                        <Status>Inserted</Status>
+                        <ID>504-023-459</ID>
+                      </Microchip>
+                    </Intake>
+                  </Animal_Data>
+                </Animal>
+              </Response_Data>
+            </Get_Animals>
+      save:
+        $ext:
+          function: tavalidate:save_xml
+          extra_kwargs:
+            variables:
+              name_from_xml: '/Get_Animals/Response_Data/Animal/Animal_Data/First_Name/text()'
+
   - name: Retrieve the JSON of the created animal
     request:
       url: http://localhost:8090/animals/{returned_guid}
