@@ -3,7 +3,7 @@ test_name: Given an intake, when intake is processed, then animal exists in all 
 stages:
   - name: Start the intake
     request:
-      url: http://localhost:8090/animals
+      url: http://localhost:2090/animals
       method: POST
     response:
       status_code: 201
@@ -13,7 +13,7 @@ stages:
 
   - name: Retrieve the XML of the animal
     request:
-      url: http://localhost:8000/animals/{returned_guid}
+      url: http://localhost:2000/animals/{returned_guid}
       method: GET
     response:
       status_code: 200
@@ -34,7 +34,7 @@ stages:
 
   - name: Retrieve the JSON of the created animal
     request:
-      url: http://localhost:8090/animals/{returned_guid}
+      url: http://localhost:2090/animals/{returned_guid}
       method: GET
     response:
       status_code: 200
@@ -42,7 +42,7 @@ stages:
 
   - name: Check if stored correctly in microchip database
     request:
-      url: http://localhost:8091/microchips/{microchip_from_main_source}
+      url: http://localhost:2091/microchips/{microchip_from_main_source}
       method: GET
     response:
       status_code: 200

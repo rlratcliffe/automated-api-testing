@@ -1,0 +1,39 @@
+{
+    "protocol": "http",
+    "port": 2091,
+    "stubs": [
+        {
+            "predicates": [
+                {
+                    "equals": {
+                        "path": "/microchips/551-504-323"
+                    }
+                }
+            ],
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200,
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                        "body": {
+                            "animalId": "R-15293",
+                            "number": "551-504-323",
+                            "state": "IL"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 404
+                    }
+                }
+            ]
+        }
+    ]
+}
