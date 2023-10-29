@@ -1,10 +1,11 @@
 # Automated API Testing
 
-Goals: To experiment with:
+## Goals ##
+To experiment with:
 - Service virtualization
 - Automated regression testing of APIs that accounts for whole process
 
-TODOs
+## TODOs ##
 - ~~Setup mountebank~~
 - ~~Setup pytest with tavern, JSON only~~
 - ~~Setup XML validation (might need new plugin)~~
@@ -16,4 +17,9 @@ TODOs
 - Better way to manage ports?
 - Validate XML with external file
 - Setup actual ports (at least for prod?)
+- Optimize mountebank templates, without so many ports/externalized files
 - More downstream systems
+
+# Running
+
+Refer to the github workflow for commands to run to start and stop the docker container and run the tests.
