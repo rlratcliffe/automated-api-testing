@@ -17,20 +17,42 @@ stages:
       method: GET
     response:
       status_code: 200
-      save:
-        $ext:
-          function: tavalidate:save_xml
-          extra_kwargs:
-            variables:
-              guid_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/GUID/text()'
-              id_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/ID/text()'
-              name_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/First_Name/text()'
-              species_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Species/text()'
-              birthYear_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Year/text()'
-              birthDate_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Day/text()'
-              birthPlace_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State/text()'
-              birthPlaceCode_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State_Code/text()'
-              microchip_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Intake/Microchip/ID/text()'
+      verify_response_with:
+        function: tavalidate:assert_xml
+        extra_kwargs:
+          expected: |
+            <Get_Animals>
+              <Response_Data>
+                <Animal>
+                  <Animal_Data>
+                    <ID_Data>
+                      <GUID>c200f720-0fca-4356-90aa-169c3c58ffdd</GUID>
+                      <ID>L-49405</ID>
+                    </ID_Data>
+                    <First_Name>Uno</First_Name>
+                    <Species>Llama</Species>
+                    <Birth_Information>
+                      <Birthday>
+                        <Month>January</Month>
+                        <Day>05</Day>
+                        <Year>2022</Year>
+                      </Birthday>
+                      <Location>
+                        <City>Erie</City>
+                        <State>Pennsylvania</State>
+                        <State_Code>PA</State_Code>
+                      </Location>
+                    </Birth_Information>
+                    <Intake>
+                      <Microchip>
+                        <Status>Inserted</Status>
+                        <ID>504-023-459</ID>
+                      </Microchip>
+                    </Intake>
+                  </Animal_Data>
+                </Animal>
+              </Response_Data>
+            </Get_Animals>
 
   - name: Retrieve the JSON of the created animal
     request:
@@ -38,12 +60,15 @@ stages:
       method: GET
     response:
       status_code: 200
-      json: !include resources/intake/source.json
+      json: !include resources/intake/static-checking/source.json
+      save:
+        json:
+          returned_microchip_number: microchipNumber
 
   - name: Check if stored correctly in microchip database
     request:
-      url: http://localhost:8091/microchips/{microchip_from_main_source}
+      url: http://localhost:8091/microchips/{returned_microchip_number}
       method: GET
     response:
       status_code: 200
-      json: !include resources/intake/microchip_db.json
+      json: !include resources/intake/static-checking/microchip_db.json

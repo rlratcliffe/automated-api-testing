@@ -1,0 +1,49 @@
+test_name: Given an intake, when intake is processed, then animal exists in all expected systems
+
+stages:
+  - name: Start the intake
+    request:
+      url: http://localhost:8090/animals
+      method: POST
+    response:
+      status_code: 201
+      save:
+        json:
+          returned_guid: guid
+
+  - name: Retrieve the XML of the animal
+    request:
+      url: http://localhost:8000/animals/{returned_guid}
+      method: GET
+    response:
+      status_code: 200
+      save:
+        $ext:
+          function: tavalidate:save_xml
+          extra_kwargs:
+            variables:
+              guid_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/GUID/text()'
+              id_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/ID_Data/ID/text()'
+              name_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/First_Name/text()'
+              species_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Species/text()'
+              birthYear_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Year/text()'
+              birthDate_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Day/text()'
+              birthPlace_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State/text()'
+              birthPlaceCode_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State_Code/text()'
+              microchip_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Intake/Microchip/ID/text()'
+
+  - name: Retrieve the JSON of the created animal
+    request:
+      url: http://localhost:8090/animals/{returned_guid}
+      method: GET
+    response:
+      status_code: 200
+      json: !include resources/intake/dynamic-checking/source.json
+
+  - name: Check if stored correctly in microchip database
+    request:
+      url: http://localhost:8091/microchips/{microchip_from_main_source}
+      method: GET
+    response:
+      status_code: 200
+      json: !include resources/intake/dynamic-checking/microchip_db.json
