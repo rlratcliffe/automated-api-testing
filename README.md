@@ -15,7 +15,7 @@ To experiment with:
 - Figure out dynamic checking of things like string months to their integer equivalent (using fixtures maybe?)
 - Separate out tests to run dev/prod tests separately
 - Better way to manage ports?
-- Validate XML with external file
+- ~~Validate XML with external file~~
 - Setup actual ports (at least for prod?)
 - Optimize mountebank templates, without so many ports/externalized files
 - More downstream systems
