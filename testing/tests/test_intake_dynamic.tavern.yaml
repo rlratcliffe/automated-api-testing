@@ -28,9 +28,22 @@ stages:
               species_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Species/text()'
               birthYear_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Year/text()'
               birthDate_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Day/text()'
+              birthMonth_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Birthday/Month/text()'
               birthPlace_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State/text()'
               birthPlaceCode_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Birth_Information/Location/State_Code/text()'
               microchip_from_main_source: '/Get_Animals/Response_Data/Animal/Animal_Data/Intake/Microchip/ID/text()'
+
+  - name: Set month variable dynamically (request not relevant)
+    request:
+      url: https://postman-echo.com/get
+      method: GET
+    response:
+      save:
+        $ext:
+          function: tests.utils:parse_month_as_string
+          extra_kwargs:
+            variables:
+              birthMonth_from_main_source: "{birthMonth_from_main_source}"
 
   - name: Retrieve the JSON of the created animal
     request:

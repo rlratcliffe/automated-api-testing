@@ -12,7 +12,7 @@ To experiment with:
 - ~~'Dynamic' testing that checks downstream systems based on XML values~~
 - ~~'Static' testing that checks all results based on predefined values~~
 - ~~External files in tests instead of inline~~
-- Figure out dynamic checking of things like string months to their integer equivalent (using fixtures maybe?)
+- ~~Figure out dynamic checking of things like string months to their integer equivalent (using fixtures maybe?)~~
 - Separate out tests to run dev/prod tests separately
 - Better way to manage ports?
 - ~~Validate XML with external file~~
